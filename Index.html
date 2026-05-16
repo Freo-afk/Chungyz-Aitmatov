@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url("https://i.pinimg.com/1200x/c6/64/81/c664814580389cf3d3d3467abb5fde6f.jpg") no-repeat center/cover;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 320px;
+            padding: 25px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        h1 { color: #1e2a78; margin-bottom: 20px; }
+
+        .input-box {
+            background: #eee;
+            border-radius: 12px;
+            margin-bottom: 10px; /* Уменьшил отступ, чтобы влезла ошибка */
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-box input {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        /* СТИЛЬ ОШИБКИ */
+        #error-message {
+            color: #d32f2f;
+            font-size: 12px;
+            margin-bottom: 15px;
+            height: 14px; /* Чтобы контейнер не прыгал */
+            font-weight: bold;
+            display: block;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            background: linear-gradient(to right, #3b6edc, #4a8ef0);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover { transform: scale(1.05); }
+
+        /* Убираем стрелочки у чисел */
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+            -webkit-appearance: none; margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Вход</h1>
+
+    <div class="input-box">
+        <span>👤</span>
+        <input type="text" id="name" placeholder="Введи свое имя">
+    </div>
+
+    <div class="input-box">
+        <span>📅</span>
+        <input type="number" id="age" placeholder="Твой возраст">
+    </div>
+
+    <!-- Сюда будет выводиться ошибка -->
+    <span id="error-message"></span>
+
+    <button onclick="checkAccess()">Войти</button>
+</div>
+
+<script>
+    function checkAccess() {
+        const nameValue = document.getElementById('name').value.trim();
+        const ageValue = document.getElementById('age').value;
+        const age = parseInt(ageValue);
+        const errorElement = document.getElementById('error-message');
+
+        // Сначала очищаем старую ошибку
+        errorElement.textContent = "";
+
+        // 1. Проверяем имя
+        if (nameValue === "") {
+            errorElement.textContent = "Введите имя!";
+            return;
+        }
+
+        // 2. Проверяем возраст
+        if (ageValue === "") {
+            errorElement.textContent = "Введите возраст!";
+        } else if (age < 10) {
+            errorElement.textContent = "Слишком мало лет!";
+        } else if (age > 100) {
+            errorElement.textContent = "Слишком много лет!";
+        } else {
+            // Если всё супер — переходим
+            window.location.href = 'New .html';
+        }
+    }
+</script>
+
+</body>
+</html>
